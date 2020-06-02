@@ -1,0 +1,100 @@
+import org.openhab.core.library.types.*
+ 
+var HSBType hsbValue
+
+var int redValue
+var int greenValue
+var int blueValue
+
+var int redValueHex
+var int greenValueHex
+var int blueValueHex
+
+var String redValueHexString
+var String greenValueHexString
+var String blueValueHexString
+
+var String redValueHexStringFull
+var String greenValueHexStringFull
+var String blueValueHexStringFull
+
+var Number temp
+
+var String GRBvalues
+
+ 
+rule "Set RGB 1 value"
+
+when
+
+   Item LR_LEDLight_Color changed
+   
+then
+
+   hsbValue = LR_LEDLight_Color.state as HSBType 
+ 
+   redValue = hsbValue.red.intValue
+   greenValue = hsbValue.green.intValue
+   blueValue = hsbValue.blue.intValue
+   
+   redValueHex = redValue * 255 / 100
+   greenValueHex = greenValue * 255 / 100
+   blueValueHex = blueValue * 255 / 100
+
+
+   redValueHexString = Integer::toHexString(redValueHex)
+   redValueHexStringFull = redValueHexString 
+   
+   greenValueHexString = Integer::toHexString(greenValueHex)
+   greenValueHexStringFull = greenValueHexString
+   
+   blueValueHexString = Integer::toHexString(blueValueHex)
+   blueValueHexStringFull = blueValueHexString
+      
+   if (Integer::toHexString(redValueHex).length == 1){
+//      logInfo( "LR_LEDLight_Color", "v red znakov" )
+//	  logInfo( "LR_LEDLight_Color", "1" )
+	  redValueHexStringFull = "0" + redValueHexString
+   }
+   if (Integer::toHexString(greenValueHex).length == 1){
+//      logInfo( "LR_LEDLight_Color", "v green znakov" )
+//	  logInfo( "LR_LEDLight_Color", "1" )
+	  greenValueHexStringFull = "0" + greenValueHexString
+   }
+   if (Integer::toHexString(blueValueHex).length == 1){
+//      logInfo( "LR_LEDLight_Color", "v blue znakov" )
+//	  logInfo( "LR_LEDLight_Color", "1" )
+	  blueValueHexStringFull = "0" + blueValueHexString
+   }
+   
+   GRBvalues= greenValueHexStringFull + redValueHexStringFull + blueValueHexStringFull
+
+   sendHttpGetRequest("http://192.168.88.14/sec/?pt=35&ws="+GRBvalues)
+/*
+   if (GRBvalues == "000000")
+   {
+		sendCommand(itemKitchenCountertop, OFF)
+   }
+   else
+   {
+		sendCommand(itemKitchenCountertop, ON)
+   }
+   
+   logInfo( "LR_LEDLight_Color", GRBvalues )
+*/
+end
+
+rule "ONOFF Kitchen Countertop"
+
+when
+   Item itemKitchenCountertop changed 
+then
+   if (itemKitchenCountertop.state == ON)
+   {
+      sendHttpGetRequest("http://192.168.88.14/sec/?pt=35&ws=FFFFFF")
+   }
+   else
+   {
+      sendHttpGetRequest("http://192.168.88.14/sec/?pt=35&ws=000000")
+   }
+end

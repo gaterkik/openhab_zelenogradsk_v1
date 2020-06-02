@@ -1,0 +1,100 @@
+Number CounterWater      "Count inputs [%d]"              <water>     { channel = "megad:device:megadeviceincoming:inputCounterD0P19:incount" }
+Number WaterLiters		 "Показания счетчика, литров [%s]"  <water>
+Number WaterVolume       "Показания счётчика, m^3 [%.3f]"  <water>
+Number Water_hourcounter "Расход за час, литров[%.2f]"    <water>
+Number Water_daycounter  "Расход за день, литров [%.2f]"  <water>
+
+Number Counterdds238      "Count inputs [%d]"          <energy>     { channel = "megad:device:megadeviceincoming:inputCounterD0P21:incount" }
+Number Dds2381KWh         "Показания, кВт*ч [%.2f]" <energy>
+Number Dds238_hourcounter "Расход за час, кВт*ч [%.2f]"       <energy>
+Number Dds238_daycounter  "Расход за день, кВт*ч [%.2f]"      <energy>
+
+DateTime Date  "Date [%1$tA, %1$td.%1$tm.%1$tY %1$tH:%1$tM]"  { channel="ntp:ntp:demo:dateTime" }
+
+
+String test "тест" 
+
+Switch itemAllOff "Тушим свет"
+
+Switch itemKitchenCountertop "Рабочая поверхность"
+
+
+Switch  Bathroom_MotionTimer {expire="15m,command=OFF"}
+Switch  Kitchen_MotionTimer {expire="15m,command=OFF"}
+Switch  Bedroom_MotionTimer {expire="5m,command=OFF"}
+Switch  Entrance_MotionTimer {expire="5m,command=OFF"}
+
+Switch DDBedRoomDisable "Отключение датчика движения в спальне"
+
+Color LR_LEDLight_Color "Рабочая поверхность"
+
+Switch itemPHP1 "php script 1"
+Switch itemPHP2 "php script 2"
+Switch itemPHP3 "php script 3"
+Switch itemPHP4 "php script 4"
+Switch itemPHP5 "php script 5"
+Switch itemPHP6 "php script 6"
+Switch itemPHP7 "php script 7"
+
+
+
+
+//входы
+Switch itemD0P0 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P0:in" }
+Switch itemD0P1 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P1:in" }
+Switch itemD0P2 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P2:in" }
+Switch itemD0P3 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P3:in" }
+Switch itemD0P4 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P4:in" }
+Switch itemD0P5 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P5:in" }
+Switch itemD0P15 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P15:in" }
+Switch itemD0P16 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P16:in" }
+Switch itemD0P17 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P17:in" }
+Switch itemD0P18 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD0P18:in" }
+
+//выходы реле
+Switch itemD0P7 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P7:out" }
+Switch itemD0P8 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P8:out" }
+Switch itemD0P9 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P9:out" }
+Switch itemD0P22 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P22:out" }
+Switch itemD0P23 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P23:out" }
+Switch itemD0P24 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P24:out" }
+
+
+Switch itemD0P11 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:outputD0P11:out" }
+Switch itemD0P26 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD0P26:out" }
+
+//выходы диммеры
+Dimmer  itemD0P10 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:DimmerD0P10:dimmer" }
+Dimmer  itemD0P12 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:DimmerD0P12:dimmer" }
+Dimmer  itemD0P13 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:DimmerD0P13:dimmer" }
+Dimmer  itemD0P25 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:DimmerD0P25:dimmer" }
+Dimmer  itemD0P27 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:DimmerD0P27:dimmer" }
+Dimmer  itemD0P28 "out" (GF_Corridor) [ "Lighting" ] { channel = "megad:device:megadeviceincoming:DimmerD0P28:dimmer" }
+
+// ВТОРАЯ МЕГА
+Switch itemD1P28 "out" (GF_Corridor) [ "Switchable" ] { channel = "megad:device:megadeviceincoming:outputD1P28:out" } //перекрытие воды
+
+Switch itemD1P15 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD1P15:in" }
+Switch itemD1P16 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD1P16:in" }
+Switch itemD1P17 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD1P17:in" }
+Switch itemD1P18 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD1P18:in" }
+Switch itemD1P19 "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputD1P19:in" }
+
+/*
+Switch inputChannelExampleItem "in" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputChannelExample:in" }  
+Number inputCounterChannelExampleItem "Count inputs [%d]"  (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputCounterChannelExample:incount" }
+Switch outputChannelExample "out" (GF_Corridor) { channel = "megad:device:megadeviceincoming:inputChannelExample:out" } 
+Dimmer  DimmerChannelExampleItem "out" (GF_Corridor) { channel = "megad:device:megadeviceincoming:DimmerChannelExampleItem:dimmer" }
+Number TemperatureDHTChannelExampleItem "TemperatureDHT [%.1f °C]" <temperature>   (Temperature, GF_Corridor) { channel = "megad:device:megadeviceincoming:TemperatureDHTChannelExample:temp" } 
+String I2CChannelExampleItem  "TemperatureDHT [%s]"   (GF_Corridor) { channel = "megad:device:megadeviceincoming:I2CChannelExample:i2c" } 
+Number HumidityDHTChannelExampleItem "HumidityDHTChannelExample [%.1f]"   (GF_Corridor) { channel = "megad:device:megadeviceincoming:HumidityDHTChannelExample:humidity" } 
+Number TemperatureOnewireChannelExampleItem "TemperatureOneWire [%.1f °C]" <temperature>   (Temperature, GF_Corridor) { channel = "megad:device:megadeviceincoming:TemperatureOnewireChannelExample:onewire" } 
+Number ADCvalueChannelExampleItem "ADC [%d]"   { channel = "megad:device:megadeviceincoming:ADCvalueChannelExample:adc" }
+Number AlarmtempChannelExampleItem "Temperature Alarm temp [%.1f °C]"   { channel = "megad:device:megadeviceincoming:AlarmtempChannelExample:at" } 
+Number StartingMegaChannelExampleItem "StartingMega [%d]"   { channel = "megad:device:megadeviceincoming:StartingMegaChannelExample:st" }
+String IbuttonChannelExampleItem "IButton value [%s]"   (GF_Corridor) { channel = "megad:device:megadeviceincoming:IbuttonChannelExample:ib" }
+String wiegandChannelExampleItem "wiegandChannelExample value [%s]"   (GF_Corridor) { channel = "megad:device:megadeviceincoming:MegadtempChannelExample:wiegand" }
+Number MegadtempChannelExampleItem "MegadtempChannelExample   [%.1f °C]"   { channel = "megad:device:megadeviceincoming:MegadtempChannelExample:tget" }    
+Contact ClosedOROpenChannelExampleItem "[%s]" (GF_Corridor) { channel = "megad:device:megadeviceincoming:ClosedOROpenChannelExample:contact" }
+String i2cdisplayChannelExampleItem "i2cdisplayChannelExample value [%s]"   (GF_Corridor) { channel = "megad:device:megadeviceincoming:i2cdisplayChannelExample:i2cdisplay" }
+*/

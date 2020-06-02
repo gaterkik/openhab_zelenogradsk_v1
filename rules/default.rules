@@ -1,0 +1,243 @@
+var int Timeout
+//------------------------------------------------------------------------
+// obrabotka nazatiya viklyuchatelya v koridore. men'she sekundi - vkluchaem/vikluchaem. bol'she sekundi - vikluchaem svet vo vsei kvartire
+
+rule "Test"
+when Item itemD0P2 changed to ON then
+ Timeout = now.getMillisOfDay
+ logInfo("StartTime", Timeout.toString)
+end
+
+rule "Test1"
+when Item itemD0P2 changed to OFF then
+var int Stop = now.getMillisOfDay
+logInfo("StopTime", Timeout.toString)
+var int result = Stop - Timeout
+result = result / 1000
+
+ if (result <= 1) {
+ 	logInfo("Timer 1 second ", result.toString)
+ 	if (itemD0P11.state == OFF){
+	logInfo("viklu4en -> vklu4aem", result.toString)
+        sendCommand(itemD0P11, ON)
+		postUpdate(itemD0P11, ON) 
+    } else {
+	logInfo("vklu4eno -> viklu4aem", result.toString)
+		sendCommand(itemD0P11, OFF)
+		postUpdate(itemD0P11, OFF)
+    }
+ }
+ else if (result > 1){
+ 		sendCommand(itemAllOff, ON)
+		postUpdate(itemAllOff, ON)
+		logInfo(" 1 < Timer > 3 seconds", result.toString)
+ 	  } 
+end
+
+//--------------------------------------------------
+rule "0" //нажали выключатель ванная 1  
+when
+		Item itemD0P0 changed to ON
+then
+		if (itemD0P13.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P13, 0)
+			postUpdate(itemD0P13, 0)
+			sendCommand(itemD0P26, OFF)
+			postUpdate(itemD0P26, OFF)
+			logInfo("vanna", "нажали выключатель, выключаю свет ванной")
+		}
+		else
+		{
+			sendCommand(itemD0P13, 100)
+			postUpdate(itemD0P13, 100)
+			sendCommand(itemD0P26, ON)
+			postUpdate(itemD0P26, ON)
+			logInfo("vanna", "нажали выключатель, включаю свет ванной")
+		}
+end
+//--------------------------------------------------
+rule "1" //нажали выключатель ванная 2 
+when
+		Item itemD0P1 changed to ON
+then
+		if (itemD0P12.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P12, 0)
+			postUpdate(itemD0P12, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P12, 100)
+			postUpdate(itemD0P12, 100)
+		}
+end
+//--------------------------------------------------
+/*
+rule "2" //нажали выключатель коридор 1
+when
+		Item itemD0P2 changed to ON
+then
+		if (itemD0P11.state == ON)
+		{
+			sendCommand(itemD0P11, OFF)
+			postUpdate(itemD0P11, OFF)
+		}
+		else
+		{
+			sendCommand(itemD0P11, ON)
+			postUpdate(itemD0P11, ON)
+		}
+end
+*/
+//--------------------------------------------------
+rule "3" //нажали выключатель коридор 2
+when
+		Item itemD0P3 changed to ON
+then
+		if (itemD0P12.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P12, 0)
+			postUpdate(itemD0P12, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P12, 100)
+			postUpdate(itemD0P12, 100)
+		}
+end
+//--------------------------------------------------
+
+rule "4" //нажали выключатель кухня 1
+when
+		Item itemD0P4 changed to ON
+then
+		if (itemD0P10.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P10, 0)
+			postUpdate(itemD0P10, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P10, 100)
+			postUpdate(itemD0P10, 100)
+		}
+end
+
+//--------------------------------------------------
+rule "5" //нажали выключатель кухня 2
+when
+		Item itemD0P5 changed to ON
+then
+		if (itemD0P28.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P28, 0)
+			postUpdate(itemD0P28, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P28, 100)
+			postUpdate(itemD0P28, 100)
+		}
+end
+//--------------------------------------------------
+rule "15" //нажали выключатель детская 1
+when
+		Item itemD0P15 changed to ON
+then
+		if (itemD0P27.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P27, 0)
+			postUpdate(itemD0P27, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P27, 100)
+			postUpdate(itemD0P27, 100)
+		}
+end
+//--------------------------------------------------
+rule "16" //нажали выключатель детская 2
+when
+		Item itemD0P16 changed to ON
+then
+		if (itemD0P27.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P27, 0)
+			postUpdate(itemD0P27, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P27, 100)
+			postUpdate(itemD0P27, 100)
+		}
+end
+//--------------------------------------------------
+rule "17" //нажали выключатель спальня 1
+when
+		Item itemD0P17 changed to ON
+then
+		if (itemD0P25.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P25, 0)
+			postUpdate(itemD0P25, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P25, 100)
+			postUpdate(itemD0P25, 100)
+		}
+end
+//--------------------------------------------------
+rule "18" //нажали выключатель спальня 2
+when
+		Item itemD0P18 changed to ON
+then
+		if (itemD0P25.state as DecimalType > 0)
+		{
+			sendCommand(itemD0P25, 0)
+			postUpdate(itemD0P25, 0)
+		}
+		else
+		{
+			sendCommand(itemD0P25, 100)
+			postUpdate(itemD0P25, 100)
+		}
+end
+//--------------------------------------------------
+rule "alloff" //выключаем всё
+when
+		Item itemAllOff changed to ON
+then		
+		sendCommand(itemD0P10, 0)
+		postUpdate(itemD0P10, 0)
+		
+		sendCommand(itemD0P11, OFF)
+		postUpdate(itemD0P11, OFF)
+		
+		sendCommand(itemD0P12, 0)
+		postUpdate(itemD0P12, 0)
+		
+		sendCommand(itemD0P13, 0)
+		postUpdate(itemD0P13, 0)
+		
+		sendCommand(itemD0P25, 0)
+		postUpdate(itemD0P25, 0)
+		
+		sendCommand(itemD0P26, OFF)
+		postUpdate(itemD0P26, OFF)
+		
+		sendCommand(itemD0P27, 0)
+		postUpdate(itemD0P27, 0)
+		
+		sendCommand(itemD0P28, 0)
+		postUpdate(itemD0P28, 0)
+		
+		sendCommand(itemKitchenCountertop, OFF)
+		postUpdate(itemKitchenCountertop, OFF)
+		sendHttpGetRequest("http://192.168.88.14/sec/?pt=35&ws=000000")
+		
+		sendCommand(itemAllOff, OFF)
+		postUpdate(itemAllOff, OFF)
+end
+//--------------------------------------------------

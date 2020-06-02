@@ -1,0 +1,47 @@
+// Начальная настройка показаний 
+
+//rule "System started Counters"
+//when
+//   System started
+//then
+	//postUpdate(Dds2381KWh, 401.7)
+
+	// Корректировка 18.08.2019 22.04
+//end 
+
+
+
+rule "dds2381KWh" // Смотрим количество импульсов. Плюсуем к киловатам.
+when
+   Item Counterdds238 changed
+then
+   var Number Imp = Counterdds238.state as DecimalType
+   var Number KWh = Dds2381KWh.state as DecimalType
+   
+   if ( Imp >= 20 )	
+   		{
+	    KWh = KWh + Imp/2000 // 1 кВт*ч - 2000 импульсов   0.5 Wh - 1 imp 
+		postUpdate(Dds2381KWh, KWh)
+		sendHttpGetRequest("http://192.168.88.14/sec/?pt=21&cnt=0")
+		}
+end
+
+rule "Energy by hour"
+when
+        Time cron "0 0 * * * ?"
+then
+//вычисление расхода. Из текущих показаний счетчика вычитаются значения из базы на час раньше   
+        var hour = Dds2381KWh.state as DecimalType - Dds2381KWh.historicState(now.minusHours(1)).state as DecimalType
+//вывод данных в лог для отладки
+        logInfo("TEST","sdm220_hourcounter = "+hour)
+//присваиваем значение Item
+        postUpdate(Dds238_hourcounter, hour)
+end
+
+rule "Energy by day"
+when
+        Time cron "0 0 0 * * ?"
+then
+        var day = Dds2381KWh.state as DecimalType - Dds2381KWh.historicState(now.minusDays(1)).state as DecimalType
+        postUpdate(Dds238_daycounter, day)
+end

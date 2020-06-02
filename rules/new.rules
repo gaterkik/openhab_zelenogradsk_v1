@@ -1,0 +1,105 @@
+//--------------------------------------------------------------------------
+ 
+rule "php script 1 run"
+
+when
+
+    Item itemPHP1 received command
+
+then
+
+    val results = executeCommandLine("php /home/pi/phpscripts/var1.php", 50000)
+
+    logInfo("Results1", results)
+
+end
+
+
+rule "php script 2 run"
+
+when
+
+    Item itemPHP2 received command
+
+then
+
+    val results = executeCommandLine("php /etc/openhab2/phpscripts/var2.php", 10000)
+
+    logInfo("Results2", results)
+
+end
+
+
+rule "php script 3 run"
+
+when
+
+    Item itemPHP3 received command
+
+then
+
+    val results = executeCommandLine("php /home/pi/phpscripts/var3.php", 50000)
+
+    logInfo("Results3", results)
+
+end
+
+
+rule "php script 4 run"
+
+when
+
+    Item itemPHP4 received command
+
+then
+
+    val results = executeCommandLine("php /home/pi/phpscripts/var4.php", 50000)
+
+    logInfo("Results4", results)
+
+end
+
+
+rule "php script 5 run"
+
+when
+
+    Item itemPHP5 received command
+
+then
+
+    val results = executeCommandLine("php /home/pi/phpscripts/var5.php", 50000)
+
+    logInfo("Results5", results)
+
+end
+
+
+rule "php script 6 run"
+
+when
+
+    Item itemPHP6 received command
+
+then
+
+    val results = executeCommandLine("php /home/pi/phpscripts/var6.php", 50000)
+
+    logInfo("Results6", results)
+
+end
+
+
+rule "php script 7 run"
+
+when
+
+    Item itemPHP7 received command
+
+then
+
+    val results = executeCommandLine("php /home/pi/phpscripts/ng.php", 50000)
+
+    logInfo("Results7", results)
+
+end

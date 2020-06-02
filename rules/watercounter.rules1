@@ -1,0 +1,44 @@
+// Начальная настройка показаний 
+
+/*
+rule "WaterCounterUpdate"
+when
+   System started
+then
+	postUpdate(WaterVolume, 12.316)
+	postUpdate(WaterLiters, 12316)
+//	Корректировка 31.07.2019
+end 
+*/
+
+
+
+
+rule "WaterVolume" // Смотрим количество импульсов. Плюсуем к показаниям.
+when
+   Item CounterWater changed
+then
+   var Number Imp = CounterWater.state as DecimalType
+   var Number Kubometer = WaterLiters.state as DecimalType	
+	    Kubometer = Kubometer + Imp*10 //    10 литров - 1 imp 
+		postUpdate(WaterLiters, Kubometer)
+		postUpdate(WaterVolume, Kubometer/1000)
+		sendHttpGetRequest("http://192.168.88.14/sec/?pt=19&cnt=0")
+end
+
+rule "water by hour"
+when
+		Time cron "0 0 * * * ?"
+then
+		var hour = WaterLiters.state as DecimalType - WaterLiters.historicState(now.minusHours(1)).state as DecimalType
+		postUpdate(Water_hourcounter, hour)
+end
+/*
+rule "water by day"
+when
+		Time cron "0 0 0 * * ?"
+then
+		var day = WaterLiters.state as DecimalType - WaterLiters.historicState(now.minusDays(1)).state as DecimalType
+		postUpdate(Water_daycounter, day)
+end
+*/

@@ -1,0 +1,135 @@
+//------------------------------------------------------------------------------------------
+
+rule "kitchen DD srabotal"
+when
+	Item itemD1P15 changed to OFF
+then
+	if (itemD0P28.state as DecimalType > 0)
+		{
+			Kitchen_MotionTimer.sendCommand(ON)
+			logInfo("kitchen", "srabotal dd, no svet uze vklua4en. obnulyaem timer")
+		}
+		else
+		{			
+			logInfo("kitchen", "vkluchaem svet v kuhne po dd")
+			sendCommand(itemD0P28, 100)
+			postUpdate(itemD0P28, 100)
+			Kitchen_MotionTimer.sendCommand(ON)	
+		}
+end
+
+rule "Turn off the light in Kitchen when the timer is off" 
+when        
+    Item Kitchen_MotionTimer received command OFF 
+then     
+	logInfo("kitchen", "vikluchaem svet v kuhne po taimeru")    
+	sendCommand(itemD0P28, 0)
+	postUpdate(itemD0P28, 0)
+end
+
+//------------------------------------------------------------------------------------------
+
+rule "bathroom DD srabotal"
+when
+	Item itemD1P18 changed to OFF
+then
+	if (itemD0P13.state as DecimalType > 0)
+		{
+			Bathroom_MotionTimer.sendCommand(ON)
+			logInfo("bathroom", "srabotal dd, no svet uze vklua4en. obnulyaem timer")
+		}
+		else
+		{
+			
+			logInfo("bathroom", "vkluchaem svet v vannoi po dd")
+			sendCommand(itemD0P13, 100)
+			postUpdate(itemD0P13, 100)
+			sendCommand(itemD0P26, ON)
+			postUpdate(itemD0P26, ON)
+			Bathroom_MotionTimer.sendCommand(ON)	
+		}	
+end
+
+rule "Turn off the light in Bathroom when the timer is off" 
+when        
+    Item Bathroom_MotionTimer received command OFF 
+then     
+	logInfo("vanna", "vikluchaem svet v vannoi po taimeru")    
+	sendCommand(itemD0P13, 0)
+	postUpdate(itemD0P13, 0)
+	sendCommand(itemD0P26, OFF)
+	postUpdate(itemD0P26, OFF)
+end
+ 
+//------------------------------------------------------------------------------------------
+
+rule "bedroom DD srabotal"
+when
+	Item itemD1P16 changed to OFF
+then
+	if (itemD0P25.state as DecimalType > 0)
+		{
+			Bedroom_MotionTimer.sendCommand(ON)
+			logInfo("bedroom", "srabotal dd, no svet uze vklua4en. obnulyaem timer")
+		}
+		else
+		{
+			if (DDBedRoomDisable.state == ON)
+				{
+					logInfo("bedroom", "srabotal dd, no vklu4ena blokirovka dd")
+				}
+			else
+			{
+				sendCommand(itemD0P25, 100)
+				postUpdate(itemD0P25, 100)
+				logInfo("bedroom", "vkluchaem svet v spal'ne po dd")
+				Bedroom_MotionTimer.sendCommand(ON)
+			}	
+		}
+	
+end
+
+rule "Turn off the light in Bedroom when the timer is off" 
+when        
+    Item Bedroom_MotionTimer received command OFF 
+then     
+	logInfo("spal'nya", "vikluchaem svet v spal'ne po taimeru")    
+	sendCommand(itemD0P25, 0)
+	postUpdate(itemD0P25, 0)
+end
+
+//------------------------------------------------------------------------------------------
+rule "entrance DD srabotal"
+when
+	Item itemD1P19 changed to OFF
+then
+	if (itemD0P11.state == ON)
+		{
+			Entrance_MotionTimer.sendCommand(ON)
+			logInfo("entrance", "srabotal dd, no svet uze vklua4en. obnulyaem timer")
+		}
+		else
+		{			
+			logInfo("entrance", "vkluchaem svet v koridore po dd")
+			sendCommand(itemD0P11, ON)
+			postUpdate(itemD0P11, ON)
+			Entrance_MotionTimer.sendCommand(ON)	
+		}
+end
+
+rule "Turn off the light in Corridor when the timer is off" 
+when        
+    Item Entrance_MotionTimer received command OFF 
+then     
+	logInfo("entrance", "vikluchaem svet v koridore po taimeru")    
+	sendCommand(itemD0P11, OFF)
+	postUpdate(itemD0P11, OFF)
+end
+
+//------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------

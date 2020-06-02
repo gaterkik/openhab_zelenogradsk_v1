@@ -1,0 +1,58 @@
+ntp:ntp:demo  [ hostname="time.windows.com", refreshInterval=60, refreshNtp=30 ]
+Bridge megad:bridge:megadeviceincoming [port=8989]
+{
+ 
+ Thing device inputD0P0 [hostname="192.168.88.14", port="0", password="sec", refresh="10"]	//выключатель ванная 1
+ Thing device inputD0P1 [hostname="192.168.88.14", port="1", password="sec", refresh="10"]	//выключатель ванная 2  
+ Thing device inputD0P2 [hostname="192.168.88.14", port="2", password="sec", refresh="10"]	//выключатель коридор 1
+ Thing device inputD0P3 [hostname="192.168.88.14", port="3", password="sec", refresh="10"]	//выключатель коридор 2
+ Thing device inputD0P4 [hostname="192.168.88.14", port="4", password="sec", refresh="10"]	//выключатель кухня 1
+ Thing device inputD0P5 [hostname="192.168.88.14", port="5", password="sec", refresh="10"]	//выключатель кухня 2
+ Thing device inputD0P6 [hostname="192.168.88.14", port="6", password="sec", refresh="10"]	//выключатель лоджия
+ Thing device outputD0P7 [hostname="192.168.88.14", port="7", password="sec", refresh="10"] 	//тёплый пол туалет
+ Thing device outputD0P8 [hostname="192.168.88.14", port="8", password="sec", refresh="10"] 	//тёплый пол коридор
+ Thing device outputD0P9 [hostname="192.168.88.14", port="9", password="sec", refresh="10"] 	//тёплый пол кухня
+ Thing device DimmerD0P10 [hostname="192.168.88.14", port="10", password="sec", refresh="10"]	//свет стол
+ Thing device outputD0P11 [hostname="192.168.88.14", port="11", password="sec", refresh="10"]	//свет коридор 1
+ Thing device DimmerD0P12 [hostname="192.168.88.14", port="12", password="sec", refresh="10"]	//свет коридор 2
+ Thing device DimmerD0P13 [hostname="192.168.88.14", port="13", password="sec", refresh="10"]	//свет ванная основной
+ Thing device inputD0P15 [hostname="192.168.88.14", port="15", password="sec", refresh="10"]	//выключатель детская 1
+ Thing device inputD0P16 [hostname="192.168.88.14", port="16", password="sec", refresh="10"]	//выключатель детская 2
+ Thing device inputD0P17 [hostname="192.168.88.14", port="17", password="sec", refresh="10"]	//выключатель спальня 1
+ Thing device inputD0P18 [hostname="192.168.88.14", port="18", password="sec", refresh="10"]	//выключатель спальня 2
+ Thing device inputCounterD0P19 [hostname="192.168.88.14", port="19", password="sec", refresh="10"]	//счётчик воды
+ Thing device inputCounterD0P21 [hostname="192.168.88.14", port="21", password="sec", refresh="10"]	//счётчик электроэнергии
+ Thing device outputD0P22 [hostname="192.168.88.14", port="22", password="sec", refresh="10"]	//радиатор кухня
+ Thing device outputD0P23 [hostname="192.168.88.14", port="23", password="sec", refresh="10"]	//радиатор детская
+ Thing device outputD0P24 [hostname="192.168.88.14", port="24", password="sec", refresh="10"]	//радиатор спальня
+ Thing device DimmerD0P25 [hostname="192.168.88.14", port="25", password="sec", refresh="10"]	//свет спальня
+ Thing device outputD0P26 [hostname="192.168.88.14", port="26", password="sec", refresh="10"]	//вытяжка
+ Thing device DimmerD0P27 [hostname="192.168.88.14", port="27", password="sec", refresh="10"]	//свет детская
+ Thing device DimmerD0P28 [hostname="192.168.88.14", port="28", password="sec", refresh="10"]	//свет кухня основной
+ 
+ Thing device inputD1P15 [hostname="192.168.88.15", port="15", password="sec", refresh="10"]	//датчик движения кухня
+ Thing device inputD1P16 [hostname="192.168.88.15", port="16", password="sec", refresh="10"]	//датчик движения спальня
+ Thing device inputD1P17 [hostname="192.168.88.15", port="17", password="sec", refresh="10"]	//датчик движения детская
+ Thing device inputD1P18 [hostname="192.168.88.15", port="18", password="sec", refresh="10"]	//датчик движения ванная
+ Thing device inputD1P19 [hostname="192.168.88.15", port="19", password="sec", refresh="10"]	//датчик движения вход
+ Thing device outputD1P28 [hostname="192.168.88.15", port="28", password="sec", refresh="10"]	//клапан на воде
+ 
+ /*
+ Thing device inputChannelExample [hostname="localhost", port="3", password="sec", refresh="10"]
+ Thing device inputCounterChannelExample [hostname="localhost", port="1", refresh="10"]
+ Thing device outputChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device DimmerChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device TemperatureDHTChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device I2CChannelExample [hostname="localhost", port="2", refresh="10", scl="2", i2c_dev="bmx280", i2c_par="1"] // https://www.ab-log.ru/smart-house/ethernet/megad-2561   "Настройка порта типа I2C"
+ Thing device HumidityDHTChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device TemperatureOnewireChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device ADCvalueChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device AlarmtempChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device StartingMegaChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device IbuttonChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device WiegandChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device MegadtempChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device ClosedOROpenChannelExample [hostname="localhost", port="2", refresh="10"]
+ Thing device i2cdisplayChannelExample [hostname="localhost", port="2", refresh="10"]
+*/
+}
